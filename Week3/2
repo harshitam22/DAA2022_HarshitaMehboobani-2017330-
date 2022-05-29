@@ -1,0 +1,46 @@
+#include <iostream>
+#define MAX 100
+using namespace std;
+
+int main()
+{
+    int n, arr[MAX] , t = 0;
+
+    cin >> t;
+
+    while(t > 0){
+        cin  >> n;
+
+        for (int i=0; i<n; i++)
+            cin >> arr[i];
+
+        int comparisons = 0, swaps = 0;
+        for (int i=0; i<n-1; i++)
+        {
+            int small = i;
+            for (int j=i+1; j<n; j++)
+            {
+                comparisons ++;
+                if (arr[small] > arr[j])
+                    small = j;
+            }
+
+            if (small != i)
+            {
+                swaps ++;
+                int temp = arr[i];
+                arr[i] = arr[small];
+                arr[small] = temp;
+            }
+        }
+
+        for (int i=0; i<n; i++)
+            cout << arr[i] << " ";
+
+        cout << "\nComparisons = " << comparisons << endl;
+        cout << "Swaps = " << swaps << endl;
+        cout << endl;
+        t--;
+    }
+    return 0;
+}
