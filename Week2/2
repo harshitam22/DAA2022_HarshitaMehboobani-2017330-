@@ -1,0 +1,43 @@
+#include <iostream>
+#define MAX 100
+using namespace std;
+
+bool threeIndexes(int arr[] , int n){
+    for (int i=0; i<n-2; i++)
+    {
+        for (int j=i+1; j<n-1; j++)
+        {
+            for (int k=i+2; k<n; k++)
+            {
+                if (arr[i] + arr[j] == arr[k])
+                {
+                    cout << i+1 << ", " << j+1 << ", " << k+1 << endl;
+                    return true;
+                }
+            }
+        }
+    }
+}
+int main()
+{
+    int n, arr[MAX] , t =0;
+
+    cin >> t;
+
+    while(t > 0){
+        cin  >> n;
+
+        for (int i=0; i<n; i++)
+            cin >> arr[i];
+
+        bool f = false;
+
+        f = threeIndexes(arr , n);
+
+        if (f == false)
+            cout << "No Sequence Found" << endl;
+        t--;
+
+    }
+    return 0;
+}
