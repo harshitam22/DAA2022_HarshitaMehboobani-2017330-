@@ -1,0 +1,66 @@
+#include <iostream>
+#define MAX 100
+#include <bits/stdc++.h>
+
+using namespace std;
+
+class Graph{
+public:
+    int v;
+    int adj[MAX][MAX];
+
+    Graph(int v){
+        this->v = v;
+    }
+
+    void insertGraph(){
+        for(int i=0 ; i<v; i++){
+            for(int j =0; j<v; j++){
+                cin >> adj[i][j];
+            }
+        }
+    }
+
+    bool bfs(int s , int color[]){
+        queue<int> q;
+        q.push(s);
+        color[s] = 1;
+        while(!q.empty()){
+            int node = q.front();
+            q.pop();
+
+            for(int i =0; i<v; i++){
+                if(adj[s][i] == 1 && color[i] == -1){
+                   color[i] = 1 - color[node];
+                   q.push(node);
+                }
+                else if(color[i] == color[node])
+                    return false;
+            }
+        }
+        return false;
+    }
+
+    bool checkBipartite(){
+        int color[v] = {-1};
+        for(int i =0; i<v; i++){
+            if(color[i] == -1){
+                if(!bfs(i , color)){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+};
+
+int main(){
+    int v ;
+    cin >> v;
+    Graph g(v);
+    g.insertGraph();
+    if (g.checkBipartite())
+        cout << "Yes ";
+    else
+        cout << "No";
+}
