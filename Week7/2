@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    int v;
+    cin>>v;
+    int graph[v][v];
+
+    for(int i=0; i<v; i++){
+        for(int j=0; j<v; j++){
+            cin >> graph[i][j];
+        }
+    }
+
+    vector<vector<int>> g;
+    for(int i=0; i<v; i++){
+        for(int j=0; j<v; j++){
+            if(graph[i][j] != 0)
+                g.push_back({i , j , graph[i][j]});
+        }
+    }
+
+    int e = g.size();
+
+    int dist[v];
+    for(int i=0; i<v; i++)
+        dist[i] = INT_MAX;
+    dist[0] = 0;
+
+    for(int i=0; i<v-1; i++){
+        for(int j =0; j<e; j++){
+                if(dist[g[j][0]] != INT_MAX && dist[g[j][0]] + g[j][2] < dist[g[j][1]])
+                    dist[g[j][1]] = dist[g[j][0]] + graph[j][2];
+            }
+        }
+
+    for(int i=0; i<e; i++){
+        int x = g[i][0];
+        int y = g[i][1];
+        int weight = g[i][2];
+        if(dist[x] != INT_MAX && dist[x] + weight < dist[y])
+            cout << "Negative cycle" << endl;
+    }
+
+    for(int i=0; i<v; i++)
+        cout << dist[i] << " ";
+
+}
